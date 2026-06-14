@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A client-side document reader that preserves uploaded text while rendering it in a beautiful, readable interface." />
+  <title>Document Reader</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/reader.css" />
+</head>
+<body>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#upload" aria-label="Document Reader home">
+      <span class="brand-mark">DR</span>
+      <span id="navTitle">Document Reader</span>
+    </a>
+    <nav class="top-actions" aria-label="Reader actions">
+      <button class="icon-button hidden" id="drawerToggle" type="button" aria-controls="drawer" aria-expanded="false">☰</button>
+      <button class="pill-button" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark</button>
+      <button class="pill-button hidden" id="newDocument" type="button">New upload</button>
+    </nav>
+  </header>
+
+  <aside class="drawer" id="drawer" aria-label="Document sections">
+    <div class="drawer-header">
+      <p class="eyebrow">Contents</p>
+      <button class="icon-button" id="drawerClose" type="button" aria-label="Close navigation">×</button>
+    </div>
+    <ol class="drawer-list" id="sectionList"></ol>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main>
+    <section class="upload-page" id="upload" aria-labelledby="uploadTitle">
+      <div class="hero-shell">
+        <p class="section-label">Client-side document formatter</p>
+        <h1 id="uploadTitle">Turn dense documents into a calm reading experience.</h1>
+        <p class="hero-copy">Upload a PDF, DOCX, TXT, Markdown, or HTML file. Your browser extracts and renders the original content locally; no server, database, AI, summarization, or rewriting is used.</p>
+        <div class="hero-grid" aria-label="Features">
+          <article class="feature-card"><strong>Exact text preservation</strong><span>Content is escaped and rendered without rewriting or paraphrasing.</span></article>
+          <article class="feature-card"><strong>Dynamic sections</strong><span>Navigation is generated from detected headings, from 3 sections to 300+.</span></article>
+          <article class="feature-card"><strong>GitHub Pages ready</strong><span>Static HTML, CSS, and modular vanilla JavaScript.</span></article>
+        </div>
+      </div>
+
+      <form class="dropzone" id="dropzone">
+        <input id="fileInput" type="file" accept=".pdf,.docx,.txt,.md,.markdown,.html,.htm,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown,text/html" />
+        <div class="dropzone-inner">
+          <span class="upload-icon">↥</span>
+          <h2>Drop your document here</h2>
+          <p>or choose a file to render in the reader.</p>
+          <button class="primary-button" type="button" id="chooseFile">Choose file</button>
+          <p class="fine-print">Text-based PDFs only. Scanned PDFs require OCR and are intentionally unsupported.</p>
+        </div>
+      </form>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="reader-page hidden" id="reader" aria-label="Formatted document reader">
+      <div class="reader-meta">
+        <span id="readingTime">0 min read</span>
+        <span id="blockCount">0 blocks</span>
+      </div>
+      <article class="document" id="documentRoot"></article>
+    </section>
+  </main>
+
+  <button class="back-to-top hidden" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/parser.js" defer></script>
+  <script src="js/renderer.js" defer></script>
+  <script src="js/navigator.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/uploader.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
